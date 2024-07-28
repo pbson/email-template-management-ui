@@ -1,9 +1,9 @@
-export const CheckboxMultiSelect = ({ options, value, onChange, label }) => {
+export const CheckboxMultiSelect = ({ options, value, onChange, label }: any) => {
   return (
     <div className="space-y-2 w-full">
       <label className="block text-sm font-medium text-gray-700">{label}</label>
       <div className="bg-white border border-gray-300 rounded-md shadow-sm p-2 max-h-48 overflow-y-auto">
-        {options.map((option) => (
+        {options.map((option: any) => (
           <label
             key={option}
             className="flex items-center space-x-2 p-1 hover:bg-gray-100 rounded"
@@ -13,7 +13,7 @@ export const CheckboxMultiSelect = ({ options, value, onChange, label }) => {
               checked={value.includes(option)}
               onChange={() => {
                 const newValue = value.includes(option)
-                  ? value.filter((item) => item !== option)
+                  ? value.filter((item: any) => item !== option)
                   : [...value, option];
                 onChange(newValue);
               }}

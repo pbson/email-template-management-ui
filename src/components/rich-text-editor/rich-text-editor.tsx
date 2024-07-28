@@ -62,7 +62,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const debouncedContentChange = useCallback(
     debounce((newContent: string) => {
       onContentChange(newContent);
-    }, 1000),
+    }, 500),
     [onContentChange],
   );
   

@@ -36,7 +36,7 @@ const AdviceItem: React.FC<AdviceItemProps> = ({
   const debouncedUpdateTitle = useCallback(
     debounce((id: number, newTitle: string) => {
       onUpdate(id, newTitle, content);
-    }, 1000),
+    }, 500),
     [content, onUpdate],
   );
 
@@ -48,7 +48,7 @@ const AdviceItem: React.FC<AdviceItemProps> = ({
   const debouncedUpdateContent = useCallback(
     debounce((id: number, newContent: string) => {
       onUpdate(id, title, newContent);
-    }, 1000),
+    }, 500),
     [title, onUpdate],
   );
 
@@ -74,7 +74,7 @@ const AdviceItem: React.FC<AdviceItemProps> = ({
 
       replacedContent = replacedContent.replace(
         /{{Variable:(.*?)}}/g,
-        (match, p1) => {
+        (p1: any) => {
           return variables[p1] || `{{Variable:${p1}}}`;
         },
       );

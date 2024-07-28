@@ -10,9 +10,9 @@ const cases = createQueryKeys('cases', {
     queryKey: ['cases', params],
     queryFn: (params: any) => caseApi.getList(params),
   }),
-  detail: (id: number) => ({
+  detail: (id: string) => ({
     queryKey: ['cases', id],
-    queryFn: () => caseApi.getDetail(id),
+    queryFn: () => caseApi.getDetail(id as string),
   }),
 });
 
@@ -30,7 +30,7 @@ export const useCaseDetailQuery = (
   options: QueryOptions<any> = {},
 ) => {
   return useQuery({
-    ...cases.detail(id),
+    ...cases.detail(id.toString()),
     ...options,
   });
 };

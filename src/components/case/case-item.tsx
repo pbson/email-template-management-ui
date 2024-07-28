@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 import { Eye, Trash, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
 import RichTextEditor from '../rich-text-editor/rich-text-editor';
@@ -32,7 +31,6 @@ const CaseItem: React.FC<CaseItemProps> = ({
   onUpdate,
   tags,
 }) => {
-  const navigate = useNavigate();
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [previewContent, setPreviewContent] = useState('');
@@ -51,7 +49,7 @@ const CaseItem: React.FC<CaseItemProps> = ({
   const debouncedUpdateTitle = useCallback(
     debounce((id: number, newTitle: string) => {
       onUpdate(id, newTitle, content);
-    }, 1000),
+    }, 500),
     [content, onUpdate],
   );
 
@@ -70,7 +68,7 @@ const CaseItem: React.FC<CaseItemProps> = ({
   const debouncedUpdateContent = useCallback(
     debounce((id: number, newContent: string) => {
       onUpdate(id, title, newContent);
-    }, 1000),
+    }, 500),
     [title, onUpdate],
   );
 
@@ -115,7 +113,7 @@ const CaseItem: React.FC<CaseItemProps> = ({
 
       replacedContent = replacedContent.replace(
         /{{Variable:(.*?)}}/g,
-        (match, p1) => {
+        (p1: any) => {
           return variables[p1] || `{{Variable:${p1}}}`;
         },
       );
@@ -147,7 +145,7 @@ const CaseItem: React.FC<CaseItemProps> = ({
             <div className="relative">
               <select
                 className="appearance-none text-sm text-gray-600 border border-gray-200 focus:ring-1 focus:ring-blue-300 rounded pl-8 pr-8 py-1 transition-all duration-150 ease-in-out bg-transparent"
-                defaultValue={caseItem.tag.name}
+                defaultValue={caseItem?.tag?.name}
                 onChange={handleTagChange}
               >
                 {tags.map((tag: any) => (
@@ -157,7 +155,7 @@ const CaseItem: React.FC<CaseItemProps> = ({
                 ))}
               </select>
               <div
-                style={{ backgroundColor: caseItem.tag.color }}
+                style={{ backgroundColor: caseItem?.tag?.color }}
                 className={`absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full`}
               ></div>
             </div>

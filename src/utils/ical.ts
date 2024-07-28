@@ -25,19 +25,21 @@ const monthMap = {
   December: 12,
 };
 
-export const handleExportSchedule = (schedule) => {
+export const handleExportSchedule = (schedule: any) => {
   const { name, description, start_timestamp, recurrence } = schedule;
   const start = new Date(start_timestamp);
   const duration = { hours: 1 };
 
   let recurrenceRule;
   if (recurrence && recurrence.frequency !== 'OneTime') {
-    let rule = `FREQ=${recurrence.frequency.toUpperCase()};INTERVAL=${recurrence.interval}`;
+    let rule = `FREQ=${recurrence.frequency.toUpperCase()};INTERVAL=${
+      recurrence.interval
+    }`;
 
     if (recurrence.days_of_week) {
       const days = recurrence.days_of_week
         .split(',')
-        .map((day) => dayMap[day.trim()])
+        .map((day: any) => dayMap[day.trim() as keyof typeof dayMap])
         .join(',');
       rule += `;BYDAY=${days}`;
     }
@@ -47,7 +49,7 @@ export const handleExportSchedule = (schedule) => {
     if (recurrence.months_of_year) {
       const months = recurrence.months_of_year
         .split(',')
-        .map((month) => monthMap[month.trim()])
+        .map((month: any) => monthMap[month.trim() as keyof typeof monthMap])
         .join(',');
       rule += `;BYMONTH=${months}`;
     }
@@ -70,7 +72,7 @@ export const handleExportSchedule = (schedule) => {
     status: 'CONFIRMED',
   };
 
-  createEvent(event, (error, value) => {
+  createEvent(event as any, (error, value) => {
     if (error) {
       console.log(error);
       return;

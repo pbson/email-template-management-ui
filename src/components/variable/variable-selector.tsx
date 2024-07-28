@@ -99,7 +99,7 @@ const VariableSelector: React.FC<VariableSelectorProps> = ({
   const handleDeleteVariable = async () => {
     if (selectedVariable) {
       try {
-        await variableApi.delete(selectedVariable.id.toString());
+        await variableApi.delete(Number(selectedVariable.id));
         setVariables(variables.filter((v) => v.id !== selectedVariable.id));
         setSelectedVariable(null);
         setIsDeleteModalOpen(false);
@@ -154,7 +154,9 @@ const VariableSelector: React.FC<VariableSelectorProps> = ({
                 onClick={() => onSelectVariable(`${variable.name}`)}
                 className="text-left flex-grow"
               >
-                <div className="font-medium">{variable.name.replace(/_/g, ' ')}</div>
+                <div className="font-medium">
+                  {variable.name.replace(/_/g, ' ')}
+                </div>
               </button>
               <div className="flex items-center space-x-2">
                 <button

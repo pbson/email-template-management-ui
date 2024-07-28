@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Grid,
   Calendar,
@@ -13,6 +13,7 @@ import {
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import tagApi from '@/features/tag/tag.api';
 import AddTagModal from '@/components/tag/add-tag-modal';
+import logo from '@/assets/logo.svg';
 
 const SidebarComponent = () => {
   const [isTagsOpen, setIsTagsOpen] = useState(true);
@@ -72,7 +73,7 @@ const SidebarComponent = () => {
   return (
     <div className="bg-white w-72 min-h-screen flex flex-col border-r border-gray-200">
       <div className="p-4 flex justify-center items-center">
-        <img src="public/assets/imgs/logo.svg" alt="Logo" className="h-16" />
+        <img src={logo} alt="Logo" className="h-8" />
       </div>
       <nav className="flex-1 px-2 py-4 space-y-2">
         <Link

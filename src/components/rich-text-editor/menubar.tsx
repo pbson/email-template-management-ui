@@ -17,9 +17,7 @@ import {
   AlignCenter,
   AlignRight,
   AlignJustify,
-  ImageIcon,
   LinkIcon,
-  TableIcon,
   Undo,
   Redo,
   Variable,
@@ -35,7 +33,7 @@ const MenuBar = ({ isCase }: { isCase?: boolean }) => {
     return null;
   }
 
-  const ToolbarButton = ({ onClick, icon: Icon, isActive = false }) => (
+  const ToolbarButton = ({ onClick, icon: Icon, isActive = false }: any) => (
     <button
       onMouseDown={(e) => {
         e.preventDefault();
@@ -50,24 +48,6 @@ const MenuBar = ({ isCase }: { isCase?: boolean }) => {
       <Icon size={18} />
     </button>
   );
-
-  const addImage = useCallback(() => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.onchange = (event) => {
-      const file = (event.target as HTMLInputElement).files?.[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const imageDataUrl = e.target?.result as string;
-          editor.chain().focus().setImage({ src: imageDataUrl }).run();
-        };
-        reader.readAsDataURL(file);
-      }
-    };
-    input.click();
-  }, [editor]);
 
   const setLink = useCallback(() => {
     const previousUrl = editor.getAttributes('link').href;
@@ -101,14 +81,6 @@ const MenuBar = ({ isCase }: { isCase?: boolean }) => {
         .setLink({ href: url })
         .run();
     }
-  }, [editor]);
-
-  const insertTable = useCallback(() => {
-    editor
-      .chain()
-      .focus()
-      .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
-      .run();
   }, [editor]);
 
   const insertVariable = useCallback(

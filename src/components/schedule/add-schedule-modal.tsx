@@ -185,7 +185,7 @@ const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);
-                  setErrors((prev) => ({ ...prev, name: '' }));
+                  setErrors((prev: any) => ({ ...prev, name: '' }));
                 }}
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 required
@@ -207,7 +207,7 @@ const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
                 value={description}
                 onChange={(e) => {
                   setDescription(e.target.value);
-                  setErrors((prev) => ({ ...prev, description: '' }));
+                  setErrors((prev: any) => ({ ...prev, description: '' }));
                 }}
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 required
@@ -288,7 +288,7 @@ const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
                     (i + 1).toString(),
                   )}
                   value={daysOfMonthArray}
-                  onChange={(newValue) => {
+                  onChange={(newValue: any) => {
                     setDaysOfMonthArray(newValue);
                     setDaysOfMonth(newValue.join(','));
                   }}
@@ -331,7 +331,7 @@ const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
                 value={startTimestamp}
                 onChange={(e) => {
                   setStartTimestamp(e.target.value);
-                  setErrors((prev) => ({ ...prev, startTimestamp: '' }));
+                  setErrors((prev: any) => ({ ...prev, startTimestamp: '' }));
                 }}
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 required
@@ -373,7 +373,7 @@ const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
               >
                 <option value="">Select Case</option>
-                {cases?.map((caseItem) => (
+                {cases?.map((caseItem: any) => (
                   <option key={caseItem.id} value={caseItem.id}>
                     {caseItem.id}: {caseItem.title}
                   </option>
@@ -392,13 +392,13 @@ const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
                 value={userId}
                 onChange={(e) => {
                   setUserId(Number(e.target.value));
-                  setErrors((prev) => ({ ...prev, userId: '' }));
+                  setErrors((prev: any) => ({ ...prev, userId: '' }));
                 }}
                 className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                 required
               >
                 <option value="">Select User</option>
-                {users?.map((user) => (
+                {users?.map((user: any) => (
                   <option key={user.id} value={user.id}>
                     {user.full_name}
                   </option>

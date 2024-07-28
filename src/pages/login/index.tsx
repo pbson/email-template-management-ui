@@ -128,12 +128,12 @@ const LoginForm: React.FC = () => {
               )}
             </div>
             <div className="flex items-center justify-end">
-              <a
+              {/* <a
                 href="/forgot-password"
                 className="text-sm text-red-600 hover:text-red-500"
               >
                 Forgot Password?
-              </a>
+              </a> */}
             </div>
             <button
               type="submit"

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { debounce } from 'lodash';
-import { Plus, Search, Trash2 } from 'lucide-react';
+import { Plus, Search } from 'lucide-react';
 import scheduleApi from '@/features/schedule/schedule.api';
 import toast from 'react-hot-toast';
 import AddScheduleModal from '@/components/schedule/add-schedule-modal';
@@ -62,7 +62,7 @@ const ScheduleManagement: React.FC = () => {
     debounce((query: string) => {
       setSearchTitle(query);
       setCurrentPage(1);
-    }, 1000),
+    }, 500),
     [],
   );
 

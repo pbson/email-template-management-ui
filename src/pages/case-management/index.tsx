@@ -44,7 +44,7 @@ const CaseManagement: React.FC = () => {
   const [tags, setTags] = useState<Tag[]>([]);
   const [allSelected, setAllSelected] = useState(false);
   const [loadingCases, setLoadingCases] = useState(false);
-  const [loadingTags, setLoadingTags] = useState(false);
+  const [, setLoadingTags] = useState(false);
   const [casesData, setCasesData] = useState<CaseListResponse | null>(null);
 
   const fetchCases = useCallback(async () => {
@@ -58,7 +58,7 @@ const CaseManagement: React.FC = () => {
       });
       setCasesData(response.data);
       setCases(
-        response.data.cases.map((caseItem) => ({
+        response.data.cases.map((caseItem: any) => ({
           ...caseItem,
           tag: caseItem.tags[0],
           selected: false,
@@ -128,7 +128,7 @@ const CaseManagement: React.FC = () => {
     debounce((query: string) => {
       setSearchTitle(query);
       setCurrentPage(1);
-    }, 1000),
+    }, 500),
     [],
   );
 
@@ -287,7 +287,7 @@ const CaseManagement: React.FC = () => {
         <AddCaseModal
           show={showModal}
           onHide={handleModalClose}
-          tags={tags}
+          // tags={tags}
           onSave={handleModalSave}
         />
       </div>

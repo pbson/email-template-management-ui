@@ -65,8 +65,7 @@ const SignUpForm: React.FC = () => {
         <div className="max-w-xl w-full mx-auto text-black">
           <h2 className="text-3xl font-bold mb-2">Sign up</h2>
           <p className="text-gray-600 mb-8">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-            mollitia
+            Welcome! Please fill in the form to create an account.
           </p>
 
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>

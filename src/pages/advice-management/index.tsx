@@ -41,7 +41,7 @@ const AdviceManagement: React.FC = () => {
   const fetchAdvices = useCallback(async () => {
     setLoadingAdvices(true);
     try {
-      const response = await adviceApi.getList(caseId, {
+      const response = await adviceApi.getList(caseId as any, {
         title: searchTitle,
         page: currentPage,
         limit: ADVICES_PER_PAGE,
@@ -96,7 +96,7 @@ const AdviceManagement: React.FC = () => {
     debounce((query: string) => {
       setSearchTitle(query);
       setCurrentPage(1);
-    }, 1000),
+    }, 500),
     [],
   );
 
