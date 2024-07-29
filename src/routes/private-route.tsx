@@ -32,19 +32,19 @@ const PrivateRoute = ({
   if (token && !isTokenInvalid(token)) {
     if (isTeacherRole(token)) {
       return (
-        <Navigate to="/email-template-management-ui/teacher-auth-success" />
+        <Navigate to="/teacher-auth-success" />
       );
     }
     // If the user is authenticated, either render the protected component or redirect them
     if (redirectTo) {
       console.log('Redirecting to', redirectTo);
-      // return <Navigate to={redirectTo} />;
+      return <Navigate to={redirectTo} />;
     }
     return children;
   } else if (!redirectTo) {
     console.log('Redirecting to login');
     // If the user is not authenticated and trying to access a protected route, redirect to login
-    return <Navigate to="/email-template-management-ui/login" />;
+    return <Navigate to="/login" />;
   }
 
   // If no specific condition matches, render the children (for public routes)

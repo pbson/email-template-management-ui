@@ -16,12 +16,12 @@ const NotFound = lazy(() => import('@/pages/not-found'));
 
 const routes = [
   {
-    path: '/email-template-management-ui',
+    path: '/',
     element: <LayoutComponent />,
     children: [
       {
         path: '',
-        element: <Navigate to="/email-template-management-ui/case-management" />,
+        element: <Navigate to="case-management" />,
       },
       {
         path: 'case-management',
@@ -55,27 +55,27 @@ const routes = [
     ],
   },
   {
-    path: '/email-template-management-ui/signup',
+    path: 'signup',
     element: (
-      <PrivateRoute redirectTo="/email-template-management-ui/case-management">
+      <PrivateRoute redirectTo="case-management">
         <Signup />
       </PrivateRoute>
     ),
   },
   {
-    path: '/email-template-management-ui/login',
+    path: 'login',
     element: (
-      <PrivateRoute redirectTo="/email-template-management-ui/case-management">
+      <PrivateRoute redirectTo="/case-management">
         <Login />
       </PrivateRoute>
     ),
   },
   {
-    path: '/email-template-management-ui/forgot-password',
+    path: 'forgot-password',
     element: <ForgotPasswordForm />,
   },
   {
-    path: '/email-template-management-ui/teacher-auth-success',
+    path: 'teacher-auth-success',
     element: <TeacherAuthSuccessView />,
   },
 ];
