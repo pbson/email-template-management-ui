@@ -15,12 +15,19 @@ const TeacherAuthSuccessView: React.FC = () => {
       chrome.runtime.sendMessage(extensionId, { type: 'SET_JWT', token: jwt }, response => {
         console.log('Response from background:', response);
       });
+    } else {
+      window.location.reload();
+      chrome.runtime.sendMessage(extensionId, { type: 'SET_JWT', token: jwt }, response => {
+        console.log('Response from background:', response);
+      });
     }
   }, []);
 
+  // send a message to the background script to set the JWT when the component unmounts
+
   const handleSignOut = () => {
     localStorage.removeItem('jwt'); // Clear the JWT
-    navigate('login'); // Redirect to the login page
+    navigate('/login'); // Redirect to the login page
   };
 
   return (
