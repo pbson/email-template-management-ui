@@ -74,7 +74,7 @@ const AddCaseModal: React.FC<AddCaseModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-2xl">
+      <div className="bg-white rounded-lg p-6 w-full max-w-2xl overflow-y-auto max-h-full">
         <h2 className="text-2xl font-bold mb-4">Add New Case</h2>
         <div>
           <div className="mb-4">

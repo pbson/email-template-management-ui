@@ -6,29 +6,29 @@ import { useNavigate } from 'react-router-dom';
 const TeacherAuthSuccessView: React.FC = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const extensionId = 'aohajaelhipbamnilfnehkcpecpeacmd';
+  // useEffect(() => {
+  //   const extensionId = 'aohajaelhipbamnilfnehkcpecpeacmd';
 
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      chrome.runtime.sendMessage(
-        extensionId,
-        { type: 'SET_JWT', token: jwt },
-        (response) => {
-          console.log('Response from background:', response);
-        },
-      );
-    } else {
-      window.location.reload();
-      chrome.runtime.sendMessage(
-        extensionId,
-        { type: 'SET_JWT', token: jwt },
-        (response) => {
-          console.log('Response from background:', response);
-        },
-      );
-    }
-  }, []);
+  //   const jwt = localStorage.getItem('jwt');
+  //   if (jwt) {
+  //     chrome.runtime.sendMessage(
+  //       extensionId,
+  //       { type: 'SET_JWT', token: jwt },
+  //       (response) => {
+  //         console.log('Response from background:', response);
+  //       },
+  //     );
+  //   } else {
+  //     window.location.reload();
+  //     chrome.runtime.sendMessage(
+  //       extensionId,
+  //       { type: 'SET_JWT', token: jwt },
+  //       (response) => {
+  //         console.log('Response from background:', response);
+  //       },
+  //     );
+  //   }
+  // }, []);
 
   // send a message to the background script to set the JWT when the component unmounts
 
