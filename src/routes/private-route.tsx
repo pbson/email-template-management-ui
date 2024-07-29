@@ -25,7 +25,7 @@ const PrivateRoute = ({
   redirectTo,
 }: {
   children: JSX.Element;
-  redirectTo: string;
+  redirectTo?: string;
 }) => {
   const token = localStorage.getItem('jwt');
 
@@ -37,10 +37,12 @@ const PrivateRoute = ({
     }
     // If the user is authenticated, either render the protected component or redirect them
     if (redirectTo) {
-      return <Navigate to={redirectTo} />;
+      console.log('Redirecting to', redirectTo);
+      // return <Navigate to={redirectTo} />;
     }
     return children;
   } else if (!redirectTo) {
+    console.log('Redirecting to login');
     // If the user is not authenticated and trying to access a protected route, redirect to login
     return <Navigate to="/email-template-management-ui/login" />;
   }

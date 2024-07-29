@@ -21,12 +21,12 @@ const routes = [
     children: [
       {
         path: '',
-        element: <Navigate to="case-management" />,
+        element: <Navigate to="/email-template-management-ui/case-management" />,
       },
       {
         path: 'case-management',
         element: (
-          <PrivateRoute redirectTo="">
+          <PrivateRoute>
             <CaseManagement />
           </PrivateRoute>
         ),
@@ -34,7 +34,7 @@ const routes = [
       {
         path: 'schedule-management',
         element: (
-          <PrivateRoute redirectTo="">
+          <PrivateRoute>
             <ScheduleManagement />
           </PrivateRoute>
         ),
