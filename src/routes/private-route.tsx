@@ -31,9 +31,28 @@ const PrivateRoute = ({
 
   if (token && !isTokenInvalid(token)) {
     if (isTeacherRole(token)) {
-      return (
-        <Navigate to="/teacher-auth-success" />
-      );
+      const extensionId = 'aohajaelhipbamnilfnehkcpecpeacmd';
+
+      const jwt = localStorage.getItem('jwt');
+      if (jwt) {
+        chrome.runtime.sendMessage(
+          extensionId,
+          { type: 'SET_JWT', token: jwt },
+          (response) => {
+            console.log('Response from background:', response);
+          },
+        );
+      } else {
+        window.location.reload();
+        chrome.runtime.sendMessage(
+          extensionId,
+          { type: 'SET_JWT', token: jwt },
+          (response) => {
+            console.log('Response from background:', response);
+          },
+        );
+      }
+      return <Navigate to="/teacher-auth-success" />;
     }
     // If the user is authenticated, either render the protected component or redirect them
     if (redirectTo) {
