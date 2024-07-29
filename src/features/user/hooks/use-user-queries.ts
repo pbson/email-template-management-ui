@@ -81,7 +81,7 @@ export const useMicrosoftSignIn = () => {
           if (response.data) {
             localStorage.setItem('jwt', response.data);
             toast.success('Signin with Microsoft successful');
-            navigate('/case-management');
+            navigate('/email-template-management-ui/case-management');
           } else {
             throw new Error('No data received from sign-in');
           }
@@ -126,7 +126,7 @@ export const useLogout = () => {
   const logout = useCallback(() => {
     localStorage.removeItem('jwt');
     toast.success('Logged out successfully');
-    navigate('/login');
+    navigate('/email-template-management-ui/login');
   }, [navigate]);
 
   return logout;

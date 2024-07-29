@@ -1,5 +1,4 @@
 import { FC, lazy } from 'react';
-
 import { Navigate, useRoutes } from 'react-router-dom';
 
 import PrivateRoute from './private-route';
@@ -17,7 +16,7 @@ const NotFound = lazy(() => import('@/pages/not-found'));
 
 const routes = [
   {
-    path: '/',
+    path: '/email-template-management-ui',
     element: <LayoutComponent />,
     children: [
       {
@@ -56,34 +55,33 @@ const routes = [
     ],
   },
   {
-    path: '/signup',
+    path: '/email-template-management-ui/signup',
     element: (
-      <PrivateRoute redirectTo="/case-management">
+      <PrivateRoute redirectTo="/email-template-management-ui/case-management">
         <Signup />
       </PrivateRoute>
     ),
   },
   {
-    path: '/login',
+    path: '/email-template-management-ui/login',
     element: (
-      <PrivateRoute redirectTo="/case-management">
+      <PrivateRoute redirectTo="/email-template-management-ui/case-management">
         <Login />
       </PrivateRoute>
     ),
   },
   {
-    path: 'forgot-password',
+    path: '/email-template-management-ui/forgot-password',
     element: <ForgotPasswordForm />,
   },
   {
-    path: 'teacher-auth-success',
+    path: '/email-template-management-ui/teacher-auth-success',
     element: <TeacherAuthSuccessView />,
   },
 ];
 
 const RenderRouter: FC = () => {
   const element = useRoutes(routes);
-
   return element;
 };
 

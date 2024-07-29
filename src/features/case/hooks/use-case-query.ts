@@ -21,7 +21,7 @@ export const useCaseListQuery = (params: any = {}) => {
     ...cases.list(params),
     onError: () => {
       toast.error('Failed to fetch cases');
-    },
+    }
   });
 };
 

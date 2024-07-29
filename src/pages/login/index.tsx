@@ -31,7 +31,7 @@ const LoginForm: React.FC = () => {
     signin(data, {
       onSuccess: (response) => {
         localStorage.setItem('jwt', response.data);
-        navigate('/case-management');
+        navigate('/email-template-management-ui/case-management');
       },
       onError: () => {
         setError('Login failed. Please check your credentials.');
@@ -147,7 +147,7 @@ const LoginForm: React.FC = () => {
           <p className="mt-4 text-center text-sm text-gray-600">
             Don't have an account?{' '}
             <a
-              href="/signup"
+              href="/email-template-management-ui/signup"
               className="font-medium text-blue-600 hover:text-blue-500"
             >
               Sign up

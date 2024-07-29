@@ -20,7 +20,7 @@ const TeacherAuthSuccessView: React.FC = () => {
 
   const handleSignOut = () => {
     localStorage.removeItem('jwt'); // Clear the JWT
-    navigate('/login'); // Redirect to the login page
+    navigate('/email-template-management-ui/login'); // Redirect to the login page
   };
 
   return (

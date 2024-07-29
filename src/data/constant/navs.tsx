@@ -9,11 +9,6 @@ import { capitalizeFirstLetter } from '@/utils';
 
 const navs: TypeNavs[] = [
   {
-    key: HOME_PATH,
-    label: 'home',
-    element: <Home />,
-  },
-  {
     key: 'case-management',
     label: 'case management',
     element: <CaseManagement />,
