@@ -55,7 +55,7 @@ const SignUpForm: React.FC = () => {
       <div className="bg-white w-1/2 p-3 flex items-center justify-center">
         <div className="rounded-lg items-center justify-center">
           <img
-            src="public/assets/imgs/signup.svg"
+            src="/assets/imgs/signup.svg"
             alt="Email illustration"
             className="object-cover"
           />
@@ -229,7 +229,7 @@ const SignUpForm: React.FC = () => {
               >
                 <img
                   className="h-5 w-5 mr-2"
-                  src="public/assets/imgs/microsoft.svg"
+                  src="/assets/imgs/microsoft.svg"
                   alt="Microsoft logo"
                 />
                 Sign in with Microsoft
