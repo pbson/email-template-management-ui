@@ -82,7 +82,6 @@ const ScheduleManagement: React.FC = () => {
   };
 
   const handleEditSchedule = (schedule: any) => {
-    console.log('Edit schedule:', schedule);
     setEditingSchedule(schedule);
     setShowModal(true);
   };

@@ -29,6 +29,13 @@ const AddCaseModal: React.FC<AddCaseModalProps> = ({
   const [tags, setTags] = useState<Tag[]>([]);
   const [isLoadingTags, setIsLoadingTags] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (show) {
+      setTitle('');
+      setSelectedTagId('');
+      setContent('');
+    }
+  }, [show]);
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -127,6 +134,7 @@ const AddCaseModal: React.FC<AddCaseModalProps> = ({
                 content: content,
               }}
               onContentChange={handleContentChange}
+              isAddNew = {true}
             />
           </div>
           <div className="flex justify-end space-x-2">

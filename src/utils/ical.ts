@@ -74,7 +74,6 @@ export const handleExportSchedule = (schedule: any) => {
 
   createEvent(event as any, (error, value) => {
     if (error) {
-      console.log(error);
       return;
     }
 

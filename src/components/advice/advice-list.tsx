@@ -6,6 +6,7 @@ interface AdviceListProps {
   onAdviceSelect: (id: number, selected: boolean) => void;
   onDelete: (id: number) => void;
   onUpdate: (id: number, title: string, content: string) => void;
+  onEditorChange: any;
 }
 
 const AdviceList: React.FC<AdviceListProps> = ({
@@ -13,6 +14,7 @@ const AdviceList: React.FC<AdviceListProps> = ({
   onAdviceSelect,
   onDelete,
   onUpdate,
+  onEditorChange,
 }) => {
   if (!advices || advices.length === 0) {
     return (
@@ -29,6 +31,7 @@ const AdviceList: React.FC<AdviceListProps> = ({
           onSelect={onAdviceSelect}
           onDelete={onDelete}
           onUpdate={onUpdate}
+          onEditorChange={onEditorChange}
         />
       ))}
     </div>

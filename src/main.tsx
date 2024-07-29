@@ -17,13 +17,9 @@ const App = () => {
       chrome?.runtime?.sendMessage(
         extensionId,
         { type: 'SET_JWT', token: jwt },
-        (response) => {
-          console.log('Response from background:', response);
-          console.log('chrome.runtime.lastError:', chrome.runtime.lastError);
+        () => {
           if (chrome.runtime.lastError) {
             setTimeout(() => sendJwtToBackground(jwt), 1000);
-          } else {
-            console.log('Response from background:', response);
           }
         },
       );

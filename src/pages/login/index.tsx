@@ -182,7 +182,7 @@ const LoginForm: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/2 p-3 flex items-center justify-center bg-gray-100">
+      <div className="w-1/2 p-3 flex items-center justify-center">
         <div className="rounded-lg">
           <img
             src="/assets/imgs/login.svg"

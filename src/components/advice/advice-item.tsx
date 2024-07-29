@@ -10,6 +10,7 @@ interface AdviceItemProps {
   onSelect: (id: number, selected: boolean) => void;
   onDelete: (id: number) => void;
   onUpdate: (id: number, title: string, content: string) => void;
+  onEditorChange: any;
 }
 
 const AdviceItem: React.FC<AdviceItemProps> = ({
@@ -17,6 +18,7 @@ const AdviceItem: React.FC<AdviceItemProps> = ({
   onSelect,
   onDelete,
   onUpdate,
+  onEditorChange,
 }) => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
@@ -54,6 +56,9 @@ const AdviceItem: React.FC<AdviceItemProps> = ({
 
   const toggleEditor = () => {
     setIsEditorOpen(!isEditorOpen);
+    if (isEditorOpen) {
+      onEditorChange(adviceItem.id, title, content);
+    }
   };
 
   const handlePreview = async () => {

@@ -268,6 +268,7 @@ const CaseManagement: React.FC = () => {
         {!loadingCases && cases.length > 0 && (
           <CaseList
             cases={cases}
+            onEditorChange={fetchCases}
             onCaseSelect={handleCaseSelect}
             onDelete={handleDeleteCase}
             onUpdate={handleUpdateCase}

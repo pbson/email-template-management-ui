@@ -213,6 +213,7 @@ const AdviceManagement: React.FC = () => {
             onAdviceSelect={handleAdviceSelect}
             onDelete={handleDeleteAdvice}
             onUpdate={handleUpdateAdvice}
+            onEditorChange={fetchAdvices}
           />
         )}
 

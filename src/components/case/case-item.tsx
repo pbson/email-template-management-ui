@@ -21,6 +21,7 @@ interface CaseItemProps {
     content: string,
     tagId?: number,
   ) => void;
+  onEditorChange: any;
   tags: any;
 }
 
@@ -29,6 +30,7 @@ const CaseItem: React.FC<CaseItemProps> = ({
   onSelect,
   onDelete,
   onUpdate,
+  onEditorChange,
   tags,
 }) => {
   const [isEditorOpen, setIsEditorOpen] = useState(false);
@@ -74,6 +76,9 @@ const CaseItem: React.FC<CaseItemProps> = ({
 
   const toggleEditor = () => {
     setIsEditorOpen(!isEditorOpen);
+    if (isEditorOpen) {
+      onEditorChange(caseItem.id);
+    }
   };
 
   const handleShowAdvices = () => {
@@ -86,9 +91,6 @@ const CaseItem: React.FC<CaseItemProps> = ({
         adviceApi.getList(caseItem.id),
         variableApi.getList(),
       ]);
-
-      console.log('adviceResponse', adviceResponse);
-      console.log('variableResponse', variableResponse);
 
       const advices = adviceResponse.data.advices;
       const variables = variableResponse.data.reduce(
@@ -109,7 +111,6 @@ const CaseItem: React.FC<CaseItemProps> = ({
       } else {
         replacedContent = replacedContent.replace(/{{AdviceSection}}/g, '');
       }
-
 
       replacedContent = replacedContent.replace(
         /{{Variable:(.*?)}}/g,

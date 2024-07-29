@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 
 import Color from '@tiptap/extension-color';
@@ -52,12 +52,14 @@ interface RichTextEditorProps {
   isCase?: boolean;
   item: any;
   onContentChange: (newContent: string) => void;
+  isAddNew?: boolean;
 }
 
 const RichTextEditor: React.FC<RichTextEditorProps> = ({
   isCase,
   item,
   onContentChange,
+  isAddNew,
 }) => {
   const debouncedContentChange = useCallback(
     debounce((newContent: string) => {
@@ -65,7 +67,6 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
     }, 500),
     [onContentChange],
   );
-  
 
   return (
     <div className="border-t border-gray-200 bg-gray-50 p-4">
@@ -73,8 +74,9 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
         <EditorProvider
           slotBefore={<MenuBar isCase={isCase} />}
           extensions={extensions}
-          content={item.content || ''}
+          content={isAddNew ? '' : item.content || ''}
           onUpdate={({ editor }) => {
+            isAddNew = false;
             debouncedContentChange(editor.getHTML());
           }}
         >

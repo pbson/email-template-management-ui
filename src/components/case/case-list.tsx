@@ -7,6 +7,7 @@ interface CaseListProps {
   onCaseSelect: (id: number, selected: boolean) => void;
   onDelete: (id: number) => void;
   onUpdate: (id: number, title: string, content: string) => void;
+  onEditorChange: any;
   tags: any;
 }
 
@@ -15,6 +16,7 @@ const CaseList: React.FC<CaseListProps> = ({
   onCaseSelect,
   onDelete,
   onUpdate,
+  onEditorChange,
   tags,
 }) => {
   if (!cases || cases.length === 0) {
@@ -32,6 +34,7 @@ const CaseList: React.FC<CaseListProps> = ({
           onSelect={onCaseSelect}
           onDelete={onDelete}
           onUpdate={onUpdate}
+          onEditorChange={onEditorChange}
           tags={tags}
         />
       ))}

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 import adviceApi from '@/features/advice/advice.api';
 import RichTextEditor from '../rich-text-editor/rich-text-editor';
@@ -18,6 +18,13 @@ const AddAdviceModal: React.FC<AddAdviceModalProps> = ({
 }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+
+  useEffect(() => {
+    if (show) {
+      setTitle('');
+      setContent('');
+    }
+  }, [show]);
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,6 +78,7 @@ const AddAdviceModal: React.FC<AddAdviceModalProps> = ({
                 content: content,
               }}
               onContentChange={handleContentChange}
+              isAddNew = {true}
             />
           </div>
           <div className="flex justify-end space-x-2">
