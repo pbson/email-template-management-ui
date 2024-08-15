@@ -4,9 +4,10 @@ import { X } from 'lucide-react';
 interface AddVariableModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (name: string, defaultValue: string) => void;
+  onSave: (name: string, defaultValue: string, isPermanent: boolean) => void;
   initialName?: string;
   initialDefaultValue?: string;
+  initialIsPermanent?: boolean;
 }
 
 const AddVariableModal: React.FC<AddVariableModalProps> = ({
@@ -15,20 +16,23 @@ const AddVariableModal: React.FC<AddVariableModalProps> = ({
   onSave,
   initialName = '',
   initialDefaultValue = '',
+  initialIsPermanent = false,
 }) => {
   const [name, setName] = useState(initialName);
   const [defaultValue, setDefaultValue] = useState(initialDefaultValue);
+  const [isPermanent, setIsPermanent] = useState(initialIsPermanent);
 
   useEffect(() => {
     setName(initialName);
     setDefaultValue(initialDefaultValue);
-  }, [initialName, initialDefaultValue]);
+    setIsPermanent(initialIsPermanent);
+  }, [initialName, initialDefaultValue, initialIsPermanent]);
 
   if (!isOpen) return null;
 
   const handleSave = () => {
     if (name.trim()) {
-      onSave(name.trim(), defaultValue.trim());
+      onSave(name.trim(), defaultValue.trim(), isPermanent);
       onClose();
     }
   };
@@ -85,6 +89,21 @@ const AddVariableModal: React.FC<AddVariableModalProps> = ({
               className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               placeholder="Enter example for preview"
             />
+          </div>
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="isPermanent"
+              checked={isPermanent}
+              onChange={(e) => setIsPermanent(e.target.checked)}
+              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            />
+            <label
+              htmlFor="isPermanent"
+              className="ml-2 block text-sm text-gray-900"
+            >
+              Set as permanent variable
+            </label>
           </div>
           <div className="flex justify-end space-x-2">
             <button

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Plus, X, Edit, Trash } from 'lucide-react';
+import { Search, Plus, X, Edit, Trash, Lock } from 'lucide-react';
 import AddVariableModal from './add-variable';
 import variableApi from '@/features/variable/variable.api';
 
@@ -7,6 +7,7 @@ interface Variable {
   id: number;
   name: string;
   default_value: string;
+  is_permanent: boolean;
 }
 
 interface VariableSelectorProps {
@@ -33,6 +34,7 @@ const VariableSelector: React.FC<VariableSelectorProps> = ({
     const fetchVariables = async () => {
       try {
         const response = await variableApi.getList();
+        console.log(response.data);
         setVariables(response.data);
       } catch (error) {
         console.error('Failed to fetch variables:', error);
@@ -68,21 +70,34 @@ const VariableSelector: React.FC<VariableSelectorProps> = ({
     variable.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  const handleAddVariable = async (name: string, defaultValue: string) => {
+  const handleAddVariable = async (
+    name: string,
+    defaultValue: string,
+    isPermanent: boolean,
+  ) => {
     try {
-      const response = await variableApi.create(name, defaultValue);
+      const response = await variableApi.create(
+        name,
+        defaultValue,
+        isPermanent,
+      );
       setVariables([...variables, response.data]);
     } catch (error) {
       console.error('Failed to add variable:', error);
     }
   };
 
-  const handleEditVariable = async (name: string, defaultValue: string) => {
+  const handleEditVariable = async (
+    name: string,
+    defaultValue: string,
+    isPermanent: boolean,
+  ) => {
     if (selectedVariable) {
       try {
         const response = await variableApi.update(selectedVariable.id, {
           name,
           default_value: defaultValue,
+          is_permanent: isPermanent,
         });
         setVariables(
           variables.map((v) =>
@@ -151,12 +166,19 @@ const VariableSelector: React.FC<VariableSelectorProps> = ({
               className="flex items-center justify-between py-2 px-3 hover:bg-gray-100 rounded-md"
             >
               <button
-                onClick={() => onSelectVariable(`${variable.name}`)}
-                className="text-left flex-grow"
+                onClick={() => {
+                  !variable.is_permanent
+                    ? onSelectVariable(`${variable.name}`)
+                    : onSelectVariable(`${variable.name}::${variable.default_value}`);
+                }}
+                className="text-left flex-grow flex items-center"
               >
                 <div className="font-medium">
                   {variable.name.replace(/_/g, ' ')}
                 </div>
+                {variable.is_permanent && (
+                  <Lock size={16} className="ml-2 text-gray-500" />
+                )}
               </button>
               <div className="flex items-center space-x-2">
                 <button
@@ -202,6 +224,7 @@ const VariableSelector: React.FC<VariableSelectorProps> = ({
           onSave={selectedVariable ? handleEditVariable : handleAddVariable}
           initialName={selectedVariable?.name}
           initialDefaultValue={selectedVariable?.default_value}
+          initialIsPermanent={selectedVariable?.is_permanent}
         />
       )}
 

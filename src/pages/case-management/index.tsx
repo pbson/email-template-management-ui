@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import AddCaseModal from '@/components/case/add-case-modal';
 import CaseList from '@/components/case/case-list';
 import Pagination from '@/components/common/pagination';
+import confirm from '@/components/common/confirm';
 
 interface Case {
   id: number;
@@ -137,16 +138,46 @@ const CaseManagement: React.FC = () => {
   };
 
   const handleDeleteSelect = async () => {
-    const idsToDelete = cases.filter((c) => c.selected).map((c) => c.id);
-    for (const id of idsToDelete) {
-      try {
-        await caseApi.delete(id.toString());
-      } catch (error) {
-        console.error(`Failed to delete case ${id}:`, error);
-      }
+    const casesToDelete = cases.filter((c) => c.selected);
+    const idsToDelete = casesToDelete.map((c) => c.id);
+
+    if (idsToDelete.length === 0) {
+      toast.error('Please select at least one to delete');
+      return;
     }
-    fetchCases();
-    void toast.success('Delete Selected Cases successfully');
+
+    const confirmation = await confirm({
+      title: 'Delete Selected Cases',
+      message: `Are you sure you want to delete ${idsToDelete.length} selected case(s)? This action cannot be undone.`,
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+    });
+
+    if (confirmation) {
+      let successCount = 0;
+      let failCount = 0;
+
+      for (const id of idsToDelete) {
+        try {
+          await caseApi.delete(id.toString());
+          successCount++;
+        } catch (error) {
+          console.error(`Failed to delete case ${id}:`, error);
+          failCount++;
+        }
+      }
+
+      await fetchCases();
+
+      if (successCount > 0) {
+        toast.success(`Successfully deleted ${successCount} case(s)`);
+      }
+      if (failCount > 0) {
+        toast.error(`Failed to delete ${failCount} case(s)`);
+      }
+    } else {
+      return;
+    }
   };
 
   const handleDeleteCase = async (id: number) => {

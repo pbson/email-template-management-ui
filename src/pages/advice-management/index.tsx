@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import AddAdviceModal from '@/components/advice/add-advice-modal';
 import AdviceList from '@/components/advice/advice-list';
 import Pagination from '@/components/common/pagination';
+import { confirm } from '@/components/common/confirm';
 
 interface Advice {
   id: number;
@@ -105,16 +106,46 @@ const AdviceManagement: React.FC = () => {
   };
 
   const handleDeleteSelect = async () => {
-    const idsToDelete = advices.filter((a) => a.selected).map((a) => a.id);
-    for (const id of idsToDelete) {
-      try {
-        await adviceApi.delete(id.toString());
-      } catch (error) {
-        console.error(`Failed to delete advice ${id}:`, error);
-      }
+    const advicesToDelete = advices.filter((a) => a.selected);
+    const idsToDelete = advicesToDelete.map((a) => a.id);
+
+    if (idsToDelete.length === 0) {
+      toast.error('Please select at least one to delete');
+      return;
     }
-    fetchAdvices();
-    toast.success('Delete Selected Advices successfully');
+
+    const confirmation = await confirm({
+      title: 'Delete Selected Advices',
+      message: `Are you sure you want to delete ${idsToDelete.length} selected advice(s)? This action cannot be undone.`,
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+    });
+
+    if (confirmation) {
+      let successCount = 0;
+      let failCount = 0;
+
+      for (const id of idsToDelete) {
+        try {
+          await adviceApi.delete(id.toString());
+          successCount++;
+        } catch (error) {
+          console.error(`Failed to delete advice ${id}:`, error);
+          failCount++;
+        }
+      }
+
+      await fetchAdvices();
+
+      if (successCount > 0) {
+        toast.success(`Successfully deleted ${successCount} advice(s)`);
+      }
+      if (failCount > 0) {
+        toast.error(`Failed to delete ${failCount} advice(s)`);
+      }
+    } else {
+      return;
+    }
   };
 
   const handleDeleteAdvice = async (id: number) => {

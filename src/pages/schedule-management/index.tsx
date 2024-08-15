@@ -7,6 +7,7 @@ import AddScheduleModal from '@/components/schedule/add-schedule-modal';
 import ScheduleList from '@/components/schedule/schedule-list';
 import Pagination from '@/components/common/pagination';
 import { handleExportSchedule } from '@/utils/ical';
+import { confirm } from '@/components/common/confirm';
 
 const SCHEDULES_PER_PAGE = 5;
 
@@ -71,13 +72,24 @@ const ScheduleManagement: React.FC = () => {
   };
 
   const handleDeleteSchedule = async (id: number) => {
-    try {
-      await scheduleApi.delete(id);
-      fetchSchedules();
-      void toast.success('Delete Schedule successfully');
-    } catch (error) {
-      console.error(`Failed to delete schedule ${id}:`, error);
-      alert('Failed to delete schedule');
+    const confirmation = await confirm({
+      title: 'Delete Schedule',
+      message: 'Are you sure you want to delete this schedule? This action cannot be undone.',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+    });
+  
+    if (confirmation) {
+      try {
+        await scheduleApi.delete(id);
+        await fetchSchedules();
+        toast.success('Schedule deleted successfully');
+      } catch (error) {
+        console.error(`Failed to delete schedule ${id}:`, error);
+        toast.error('Failed to delete schedule');
+      }
+    } else {
+      return;
     }
   };
 

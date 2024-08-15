@@ -11,6 +11,8 @@ const userApi = {
     axiosClient.post('/users/reset-password', body),
   getTeachers: (): Promise<any> =>
     axiosClient.get(`/users?role=teacher`),
+  getUsers: (): Promise<any> =>
+    axiosClient.get(`/users`),
 };
 
 export default userApi;

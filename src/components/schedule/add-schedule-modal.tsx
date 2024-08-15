@@ -95,7 +95,7 @@ const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
     const fetchCasesAndUsers = async () => {
       try {
         const caseResponse = await caseApi.getList();
-        const userResponse = await userApi.getTeachers();
+        const userResponse = await userApi.getUsers();
         setCases(caseResponse.data.cases);
         setUsers(userResponse.data);
       } catch (error) {
