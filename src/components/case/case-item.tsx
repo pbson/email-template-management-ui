@@ -114,8 +114,9 @@ const CaseItem: React.FC<CaseItemProps> = ({
 
       replacedContent = replacedContent.replace(
         /{{Variable:(.*?)}}/g,
-        (p1: any) => {
-          return variables[p1] || `{{Variable:${p1}}}`;
+        (match: string, variableName: string) => {
+          // Replace with the default_value if it exists, otherwise keep the original match
+          return variables[variableName] || match;
         },
       );
 
